@@ -353,6 +353,83 @@ footer{padding:28px 0;font-size:14px;color:var(--muted)}
   .curve path{stroke-dashoffset:0}.curve circle{transform:none}
   .fbar .fill{width:var(--w)!important}
 }
+
+/* ---------- TOUR (animated funnel diagram) ---------- */
+.tour{margin-top:40px;border-radius:24px;overflow:hidden;background:#EEF1EC;border:1px solid var(--line);position:relative}
+:root[data-theme="dark"] .tour{background:#101815}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tour{background:#101815}}
+.tour-stage{position:relative;aspect-ratio:16/9;min-height:300px}
+.tour svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tour .face-top{fill:var(--surface);stroke:var(--line)}
+.tour .face-l{fill:#D5DCD3}.tour .face-r{fill:#C2CBC0}
+:root[data-theme="dark"] .tour .face-l{fill:#1D2A25}:root[data-theme="dark"] .tour .face-r{fill:#15201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tour .face-l{fill:#1D2A25}:root:not([data-theme="light"]) .tour .face-r{fill:#15201C}}
+.tour .node{transition:opacity .6s}
+.tour .node text{font:600 13px "Golos Text",sans-serif;fill:var(--fg)}
+.tour .node .ic{font:800 15px "Unbounded",sans-serif;fill:var(--cobalt)}
+.tour .grid line{stroke:var(--line);stroke-width:1}
+.tour .pipe{fill:none;stroke-width:3;stroke-linecap:round;opacity:.35;transition:opacity .6s}
+.tour .dot{transition:opacity .6s}
+.tour.focus .node:not(.on),.tour.focus .pipe:not(.on),.tour.focus .dot:not(.on){opacity:.12}
+.tour.focus .pipe.on{opacity:.9}
+.tour .node.on .face-top{stroke:var(--cobalt);stroke-width:2}
+.tour .pulse{fill:none;stroke:var(--cobalt);stroke-width:2;opacity:0}
+.tour .node.on .pulse{animation:tpulse 2s infinite}
+@keyframes tpulse{0%{opacity:.8;transform:scale(.6)}100%{opacity:0;transform:scale(1.6)}}
+.tour .pulse{transform-box:fill-box;transform-origin:center}
+.tour .call{opacity:0;transition:opacity .5s}
+.tour .call.on{opacity:1}
+.tour .call line{stroke:var(--fg);stroke-width:1}
+.tour .call circle{fill:var(--bg);stroke:var(--fg)}
+.tour .call text{font:700 12px "Golos Text",sans-serif;fill:var(--fg)}
+.tour .call text.s{font-weight:400;font-size:11px;fill:var(--muted)}
+.tour.nocall .call{display:none}
+.tour-top{position:absolute;left:20px;right:20px;top:16px;display:flex;justify-content:space-between;gap:16px;pointer-events:none;z-index:2}
+.tour-top .t{font:600 12px "Golos Text",sans-serif;color:var(--fg)}
+@media (max-width:719px){.tour-legend,.tour .call{display:none!important}.tour-stage{aspect-ratio:4/3}}
+.tour-legend{display:grid;gap:3px;font-size:11px;color:var(--muted)}
+.tour-legend span{display:flex;align-items:center;gap:6px;transition:opacity .4s}
+.tour-legend span.off{opacity:.35}
+.tour-legend i{width:16px;height:3px;border-radius:2px;display:inline-block}
+.tour-legend b{color:var(--fg);font-weight:700}
+.tour-cap{padding:22px 20px 18px;position:relative;z-index:2}
+@media (min-width:860px){.tour-cap{position:absolute;left:0;bottom:50px;max-width:600px;padding:40px 60px 6px 28px;background:radial-gradient(120% 100% at 0 100%,var(--tourbg) 55%,transparent 100%)}}
+.tour{--tourbg:#EEF1EC}:root[data-theme="dark"] .tour{--tourbg:#101815}@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tour{--tourbg:#101815}}
+.tour-cap .stepn{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+.tour-cap .stepn::before{content:"";width:34px;height:3px;background:var(--cobalt);border-radius:2px}
+.tour-cap h3{font-size:clamp(24px,3.4vw,40px);font-weight:900;margin-bottom:10px}
+.tour-cap p{font-size:15px;color:var(--muted);max-width:46ch;min-height:4.6em}
+.tour-cap .stat{display:inline-flex;gap:8px;align-items:baseline;margin-top:8px;font-size:14px;color:var(--muted)}
+.tour-cap .stat b{font:900 22px "Unbounded",sans-serif;color:var(--cobalt)}
+.tour-cap.swap h3,.tour-cap.swap p,.tour-cap.swap .stat{animation:capin .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes capin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.tour-bar{background:#121A17;color:#fff;display:flex;align-items:center;gap:14px;padding:10px 16px;position:relative;z-index:3}
+.tour-bar button{background:none;border:0;color:#fff;cursor:pointer;font:inherit;font-size:13px;opacity:.85;padding:4px 6px;border-radius:6px}
+.tour-bar button:hover{opacity:1;background:rgba(255,255,255,.08)}
+.tour-bar .pp{width:30px;height:30px;font-size:15px;opacity:1}
+.tour-track{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.18);position:relative;cursor:pointer;display:flex;gap:3px}
+.tour-track i{flex:1;height:100%;border-radius:3px;background:rgba(255,255,255,.12);position:relative;overflow:hidden}
+.tour-track i b{position:absolute;inset:0;width:0;background:var(--signal)}
+.tour-bar .time{font-size:12px;opacity:.7;font-variant-numeric:tabular-nums;min-width:62px}
+@media (max-width:600px){.tour-bar .opt{display:none}}
+
+/* ---------- CONSULTING ---------- */
+.cons{margin-top:44px;display:grid;gap:18px}
+@media (min-width:860px){.cons{grid-template-columns:repeat(3,1fr)}}
+.con{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:28px 24px;display:flex;flex-direction:column;transition:transform .3s,border-color .3s}
+.con:hover{transform:translateY(-4px);border-color:var(--cobalt)}
+.con .who{font-size:14px;color:var(--cobalt);font-weight:600}
+.con h3{font-size:22px;font-weight:800;margin:12px 0}
+.con p{color:var(--muted);font-size:15px}
+.con ul{list-style:none;margin:14px 0 0;display:grid;gap:6px;font-size:15px}
+.con li{padding-left:18px;position:relative}
+.con li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--cobalt)}
+.con .cf{margin-top:auto;padding-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;border-top:1px dashed var(--line)}
+.con .cf{margin-top:22px}
+.con .cf b{font:900 26px "Unbounded",sans-serif;color:var(--cobalt);display:block;line-height:1}
+.con .cf span{font-size:13px;color:var(--muted);display:block;margin-top:4px}
+.con .src{font-size:12px;color:var(--muted);margin-top:14px}
+.con .src a{color:var(--cobalt)}
 </style>
 </head>
 <body>
@@ -366,6 +443,8 @@ footer{padding:28px 0;font-size:14px;color:var(--muted)}
         <a href="#about">Обо мне</a>
         <a href="#services">Услуги</a>
         <a href="#cases">Кейсы</a>
+        <a href="#system">Схема</a>
+        <a href="#consulting">Консультации</a>
         <a href="#owner">Бизнесы</a>
         <a href="#tech">Технологии</a>
         <a href="#path">Опыт</a>
@@ -573,6 +652,102 @@ footer{padding:28px 0;font-size:14px;color:var(--muted)}
           <div class="num"><b data-count="6">6</b><span>человек в команде</span></div>
         </div>
         <div class="tools"><span>Тильда</span><span>Битрикс24</span><span>Unisender</span><span>Яндекс Директ</span><span>МТС Линк</span><span>3 CJM</span><span>медиаплан</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="system" style="padding-top:0">
+  <div class="wrap">
+    <span class="kicker rv" style="color:var(--cobalt);font-weight:600;font-size:14px">Схема в движении</span>
+    <h2 class="rv d1">Как устроена воронка, которую я собрал</h2>
+    <p class="lead rv d2">Пройдите путь одной заявки: от рекламы до консультации юриста. Через систему идут три потока: люди, данные и деньги.</p>
+
+    <div class="tour focus rv d2" id="tour" role="region" aria-label="Интерактивная схема вебинарной воронки">
+      <div class="tour-stage">
+        <div class="tour-top">
+          <div class="t">Вебинарная воронка · ЮрФундамент</div>
+          <div class="tour-legend" id="tLeg">
+            <span data-f="people"><i style="background:#2FB37A"></i><b>Люди</b> переходы и регистрации</span>
+            <span data-f="data"><i style="background:#4C8DF6"></i><b>Данные</b> UTM, сделки, сегменты</span>
+            <span data-f="money"><i style="background:#F08A3E"></i><b>Деньги</b> заявки и договоры</span>
+          </div>
+        </div>
+        <svg id="tSvg" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true"></svg>
+      </div>
+      <div class="tour-cap" id="tCap" aria-live="polite">
+        <div class="stepn" id="tN">1 из 8</div>
+        <h3 id="tH">Вебинарная воронка</h3>
+        <p id="tP"></p>
+        <div class="stat" id="tS"></div>
+      </div>
+      <div class="tour-bar">
+        <button class="pp" id="tPlay" aria-label="Пауза">❚❚</button>
+        <button id="tPrev" aria-label="Назад">‹</button>
+        <div class="tour-track" id="tTrack"></div>
+        <button id="tNext" aria-label="Вперёд">›</button>
+        <span class="time" id="tTime">0:00 / 0:48</span>
+        <button class="opt" id="tCall">Подписи</button>
+        <button class="opt" id="tFull">На весь экран</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="consulting" style="padding-top:0">
+  <div class="wrap">
+    <h2 class="rv">Консультации</h2>
+    <p class="lead rv d1">Разовые проекты: прихожу, разбираю, отдаю решение и план. Цифры о клиентах взяты из их открытых источников.</p>
+    <div class="cons">
+      <article class="con rv">
+        <div class="who">ЮрФундамент · юристы для стройки</div>
+        <h3>Маркетинг юрфирмы с нуля</h3>
+        <p>Консультировал собственника, как превратить экспертизу в поток заявок: какие сегменты брать, какие форматы запускать и как считать каждый канал.</p>
+        <ul>
+          <li>3 CJM: проектировщики, изыскатели, подрядчики 44-ФЗ</li>
+          <li>Стратегия вебинаров и закрытых сессий для ЛПР</li>
+          <li>Аудит соцсетей и воронки в Битрикс24</li>
+        </ul>
+        <div class="cf">
+          <div><b>100+</b><span>выигранных дел у клиента</span></div>
+          <div><b>4,8 млрд ₽</b><span>сумма выигранных дел</span></div>
+          <div><b>9 из 10</b><span>клиентов остаются после первого дела</span></div>
+          <div><b>×2</b><span>регистраций на эфир после запуска</span></div>
+        </div>
+        <div class="src">Источник: <a href="https://urreshenie.ru" target="_blank" rel="noopener">urreshenie.ru</a></div>
+      </article>
+
+      <article class="con rv d1">
+        <div class="who">Simplexity · систематизация бизнеса</div>
+        <h3>Посевы для собственников проектных компаний</h3>
+        <p>Помог найти, где в Telegram сидят владельцы проектных бюро. Не рядовые проектировщики, а люди, которые принимают решения.</p>
+        <ul>
+          <li>Критерии отбора каналов под ЛПР</li>
+          <li>Проверка ER и накруток, отсев рабочих чатов</li>
+          <li>Список на согласование и прогноз стоимости</li>
+        </ul>
+        <div class="cf">
+          <div><b>40</b><span>каналов проверил в каталоге</span></div>
+          <div><b>70+</b><span>проектных компаний работают по методике клиента</span></div>
+          <div><b>×10</b><span>окупаемость систематизации за 24 мес. у клиента</span></div>
+          <div><b>4 ч</b><span>в неделю на операционку у собственников клиента</span></div>
+        </div>
+        <div class="src">Источник: <a href="https://simplexity.pro" target="_blank" rel="noopener">simplexity.pro</a></div>
+      </article>
+
+      <article class="con rv d2">
+        <div class="who">Мастер на час · бытовой ремонт</div>
+        <h3>Запуск исполнителей на Авито</h3>
+        <p>Упаковал мастеров по электрике и сантехнике: разобрал рынок, написал объявления с хуками и собрал профиль исполнителя под доверие.</p>
+        <ul>
+          <li>Анализ конкурентов и цен в нише</li>
+          <li>Промпты для креативов «до / после»</li>
+          <li>Профиль: услуги и цены, гарантии, опыт</li>
+        </ul>
+        <div class="cf">
+          <div><b>3</b><span>акции: пенсионерам, повтор, рекомендация</span></div>
+          <div><b>7</b><span>блоков профиля заполнено</span></div>
+        </div>
       </article>
     </div>
   </div>
@@ -953,6 +1128,164 @@ footer{padding:28px 0;font-size:14px;color:var(--muted)}
     f.addEventListener('pointerenter', function(){ v.play().catch(function(){}); });
     f.addEventListener('pointerleave', function(){ v.pause(); });
   });
+})();
+
+/* ---------- TOUR: animated isometric funnel ---------- */
+(function(){
+  var tour=document.getElementById('tour'); if(!tour) return;
+  var svg=document.getElementById('tSvg'), NS='http://www.w3.org/2000/svg';
+  var C={people:'#2FB37A',data:'#4C8DF6',money:'#F08A3E'};
+  var S=46, OX=0, OY=0;
+  function P(x,y,z){return [(x-y)*0.866*S, (x+y)*0.5*S - (z||0)*S];}
+  function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+  function pts(a){return a.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1)}).join(' ');}
+
+  var N=[
+    {id:'ads',  x:0,  y:0,  h:.9, ic:'РСЯ', t:'Реклама'},
+    {id:'seed', x:0,  y:2.6,h:.9, ic:'TG',  t:'Посевы TG и MAX'},
+    {id:'mail', x:0,  y:5.2,h:.9, ic:'@',   t:'Рассылки по базе'},
+    {id:'land', x:3.6,y:2.6,h:1.3,ic:'T',   t:'Лендинг'},
+    {id:'reg',  x:6.4,y:2.6,h:1.1,ic:'MTS', t:'Регистрация'},
+    {id:'crm',  x:9,  y:.4, h:1.6,ic:'B24', t:'Битрикс24'},
+    {id:'uni',  x:9,  y:4.8,h:1.1,ic:'U',   t:'Цепочка писем'},
+    {id:'live', x:11.8,y:2.6,h:1.3,ic:'LIVE',t:'Эфир'},
+    {id:'deal', x:14.4,y:2.6,h:1.9,ic:'₽',  t:'Заявка юристу'}
+  ];
+  var M={}; N.forEach(function(n){M[n.id]=n});
+  var E=[
+    ['ads','land','people'],['seed','land','people'],['mail','land','people'],
+    ['land','reg','people'],['reg','crm','data'],['crm','uni','data'],['reg','uni','data'],
+    ['uni','live','people'],['crm','live','data'],['live','deal','money'],['crm','deal','money']
+  ];
+
+  /* ground grid */
+  var g=el('g',{'class':'grid'},svg);
+  for(var i=-1;i<=16;i+=1){var a=P(i,-1),b=P(i,7);el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1]},g);}
+  for(var j=-1;j<=7;j+=1){var a2=P(-1,j),b2=P(16,j);el('line',{x1:a2[0],y1:a2[1],x2:b2[0],y2:b2[1]},g);}
+
+  /* pipes + flowing dots */
+  var pipes=el('g',{},svg), dots=el('g',{},svg);
+  E.forEach(function(e,k){
+    var A=M[e[0]],B=M[e[1]];
+    var a=P(A.x,A.y,.25),b=P(B.x,B.y,.25), mx=(a[0]+b[0])/2, my=Math.min(a[1],b[1])-40;
+    var d='M'+a[0].toFixed(1)+' '+a[1].toFixed(1)+' Q'+mx.toFixed(1)+' '+my.toFixed(1)+' '+b[0].toFixed(1)+' '+b[1].toFixed(1);
+    var id='tp'+k;
+    el('path',{d:d,id:id,'class':'pipe','data-a':e[0],'data-b':e[1],'data-f':e[2],stroke:C[e[2]]},pipes);
+    var dg=el('g',{'class':'dot','data-a':e[0],'data-b':e[1],'data-f':e[2]},dots);
+    for(var q=0;q<3;q++){
+      var c=el('circle',{r:4,fill:C[e[2]]},dg);
+      var am=el('animateMotion',{dur:'2.4s',repeatCount:'indefinite',begin:(q*0.8)+'s'},c);
+      el('mpath',{href:'#'+id},am);
+    }
+  });
+
+  /* boxes, drawn back to front */
+  var nodesG=el('g',{},svg), W=.62;
+  N.slice().sort(function(a,b){return (a.x+a.y)-(b.x+b.y)}).forEach(function(n){
+    var x0=n.x-W,x1=n.x+W,y0=n.y-W,y1=n.y+W,h=n.h;
+    var gg=el('g',{'class':'node','data-id':n.id},nodesG);
+    el('polygon',{'class':'face-l',points:pts([P(x0,y1,0),P(x1,y1,0),P(x1,y1,h),P(x0,y1,h)])},gg);
+    el('polygon',{'class':'face-r',points:pts([P(x1,y0,0),P(x1,y1,0),P(x1,y1,h),P(x1,y0,h)])},gg);
+    el('polygon',{'class':'face-top',points:pts([P(x0,y0,h),P(x1,y0,h),P(x1,y1,h),P(x0,y1,h)])},gg);
+    el('polygon',{'class':'pulse',points:pts([P(x0,y0,h),P(x1,y0,h),P(x1,y1,h),P(x0,y1,h)])},gg);
+    /* server-rack slits on the front face */
+    for(var s=1;s<4;s++){var zz=h*s/4;var p1=P(x0+.15,y1,zz),p2=P(x1-.15,y1,zz);el('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:'rgba(0,0,0,.12)'},gg);}
+    var tc=P(n.x,n.y,h);
+    var ic=el('text',{'class':'ic',x:tc[0],y:tc[1]+5,'text-anchor':'middle'},gg); ic.textContent=n.ic;
+    var lb=P(x0,y0,h);
+    var tx=el('text',{x:lb[0],y:lb[1]-12,'text-anchor':'middle'},gg); tx.textContent=n.t;
+    n.top=tc; n.cor=P(x1,y0,h);
+  });
+
+  /* callouts */
+  var callG=el('g',{},svg);
+  function callout(id,title,sub){
+    var n=M[id], c=el('g',{'class':'call','data-id':id},callG), p=n.cor, ex=p[0]+50, ey=p[1]-50;
+    el('line',{x1:p[0],y1:p[1],x2:ex,y2:ey},c); el('circle',{cx:p[0],cy:p[1],r:4},c);
+    el('line',{x1:ex,y1:ey,x2:ex+120,y2:ey},c);
+    var t=el('text',{x:ex+2,y:ey-8},c); t.textContent=title;
+    var t2=el('text',{'class':'s',x:ex+2,y:ey+16},c); t2.textContent=sub;
+  }
+  callout('ads','Яндекс Директ','ставка от цены перехода');
+  callout('seed','Каналы под сегмент','ER от 10%, без накруток');
+  callout('land','Тильда','свой лендинг под эфир');
+  callout('reg','MTS Link','минимум полей');
+  callout('crm','Дубли по телефону','квалификация в контакте');
+  callout('uni','Unisender','прогрев до эфира');
+  callout('live','4 эфира в месяц','по четвергам в 17:00');
+  callout('deal','Консультация','от лида к договору');
+
+  /* fit viewBox to content */
+  var bb=svg.getBBox(); var pad=40;
+  var HOME=[bb.x-pad,bb.y-pad-30,bb.width+pad*2,bb.height+pad*2+60];
+  var view=HOME.slice(); svg.setAttribute('viewBox',view.join(' '));
+
+  var STEPS=[
+    {h:'Вебинарная воронка',p:'Юрфирма для стройки продаёт экспертизу через бесплатные эфиры. Ниже весь путь: трафик, лендинг, CRM, прогрев, эфир и заявка юристу.',n:[],s:''},
+    {h:'Источники трафика',p:'Три входа: реклама в РСЯ, посевы в отраслевых каналах Telegram и MAX, рассылки по своей базе. По каждой площадке решаю, масштабировать её или больше не закупать.',n:['ads','seed','mail','land'],f:['people'],s:'<b>+52%</b> трафика к плану'},
+    {h:'Лендинг под каждый эфир',p:'Отдельная страница на Тильде под тему и сегмент. На каждой ссылке UTM-метка, поэтому видно, какой канал привёл человека.',n:['land','reg'],f:['people'],s:'<b>273</b> визита на лендинг'},
+    {h:'Регистрация',p:'Человек регистрируется в MTS Link. Поля минимальные, данные уходят в CRM.',n:['reg','crm','uni'],f:['data','people'],s:'<b>444 ₽</b> за регистрацию'},
+    {h:'CRM в Битрикс24',p:'Сделка, квалификация и этап прогрева хранятся в контакте. Повторная регистрация не создаёт дубль и не начинает прогрев заново.',n:['crm','uni','live','deal'],f:['data'],s:'<b>110</b> регистраций, было 53'},
+    {h:'Прогрев до эфира',p:'Цепочка писем между регистрацией и эфиром. Аудит показал, что утечка была именно здесь, а не в рекламе.',n:['uni','live'],f:['data','people'],s:'<b>72</b> человека не дошли до эфира'},
+    {h:'Эфир',p:'Юрист разбирает реальные судебные дела. Запись выходит на следующий день и работает как контент на всю неделю.',n:['live','deal'],f:['people','money'],s:'<b>4</b> эфира в месяц'},
+    {h:'Заявка юристу',p:'Квалифицированный лид получает консультацию. Дальше досудебная работа или суд, и деньги возвращаются клиенту.',n:['deal','crm','live'],f:['money'],s:'<b>4,8 млрд ₽</b> по выигранным делам фирмы'}
+  ];
+  var DUR=6000, cur=0, t0=0, playing=false, inView=false, raf=0, elapsed=0;
+  var track=document.getElementById('tTrack'), segs=[];
+  STEPS.forEach(function(_,k){var i=document.createElement('i');i.appendChild(document.createElement('b'));i.onclick=function(){go(k,true)};track.appendChild(i);segs.push(i)});
+  var cap=document.getElementById('tCap'),$h=document.getElementById('tH'),$p=document.getElementById('tP'),$s=document.getElementById('tS'),$n=document.getElementById('tN');
+  var playB=document.getElementById('tPlay'), timeEl=document.getElementById('tTime');
+  var total=STEPS.length*DUR/1000;
+  function fmt(s){s=Math.floor(s);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+
+  var camFrom=view.slice(), camTo=view.slice(), camT=1, camStart=0;
+  function target(st){
+    if(!st.n.length) return HOME.slice();
+    var xs=[],ys=[]; st.n.forEach(function(id){var t=M[id].top;xs.push(t[0]);ys.push(t[1])});
+    var x0=Math.min.apply(0,xs)-170,x1=Math.max.apply(0,xs)+230,y0=Math.min.apply(0,ys)-150,y1=Math.max.apply(0,ys)+150;
+    var w=Math.max(x1-x0,HOME[2]*.5), h=w*HOME[3]/HOME[2]; if(h<y1-y0){h=y1-y0;w=h*HOME[2]/HOME[3];}
+    var cx=(x0+x1)/2-w*.08, cy=(y0+y1)/2+h*.08;
+    return [cx-w/2,cy-h/2,w,h];
+  }
+  function go(k,manual){
+    cur=(k+STEPS.length)%STEPS.length; var st=STEPS[cur];
+    elapsed=0; t0=performance.now();
+    $n.textContent=(cur+1)+' из '+STEPS.length; $h.textContent=st.h; $p.textContent=st.p; $s.innerHTML=st.s;
+    cap.classList.remove('swap'); void cap.offsetWidth; cap.classList.add('swap');
+    var on=st.n, f=st.f||['people','data','money'];
+    tour.classList.toggle('focus',on.length>0);
+    svg.querySelectorAll('.node').forEach(function(e){e.classList.toggle('on',on.indexOf(e.dataset.id)>-1)});
+    svg.querySelectorAll('.pipe,.dot').forEach(function(e){e.classList.toggle('on',on.indexOf(e.dataset.a)>-1&&on.indexOf(e.dataset.b)>-1&&f.indexOf(e.dataset.f)>-1)});
+    svg.querySelectorAll('.call').forEach(function(e){e.classList.toggle('on',on.length>0&&on[0]===e.dataset.id)});
+    document.querySelectorAll('#tLeg span').forEach(function(e){e.classList.toggle('off',on.length>0&&f.indexOf(e.dataset.f)<0)});
+    segs.forEach(function(s,i){s.firstChild.style.width=i<cur?'100%':'0'});
+    camFrom=view.slice(); camTo=target(st); camT=0; camStart=performance.now();
+    if(manual&&!playing) draw(performance.now());
+  }
+  function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+  function draw(now){
+    if(camT<1){camT=Math.min(1,(now-camStart)/1400);var e=ease(camT);for(var i=0;i<4;i++)view[i]=camFrom[i]+(camTo[i]-camFrom[i])*e;svg.setAttribute('viewBox',view.join(' '));}
+    if(playing){elapsed=now-t0; if(elapsed>=DUR){go(cur+1);elapsed=0;}}
+    segs[cur].firstChild.style.width=Math.min(100,elapsed/DUR*100)+'%';
+    timeEl.textContent=fmt((cur*DUR+elapsed)/1000)+' / '+fmt(total);
+    if(playing||camT<1) raf=requestAnimationFrame(draw);
+  }
+  function play(){if(playing)return;playing=true;t0=performance.now()-elapsed;playB.textContent='❚❚';playB.setAttribute('aria-label','Пауза');cancelAnimationFrame(raf);raf=requestAnimationFrame(draw);if(svg.unpauseAnimations)svg.unpauseAnimations();}
+  function pause(){playing=false;playB.textContent='▶';playB.setAttribute('aria-label','Играть');}
+  playB.onclick=function(){playing?pause():play()};
+  document.getElementById('tPrev').onclick=function(){go(cur-1,true);if(!playing)raf=requestAnimationFrame(draw)};
+  document.getElementById('tNext').onclick=function(){go(cur+1,true);if(!playing)raf=requestAnimationFrame(draw)};
+  var cb=document.getElementById('tCall'); cb.onclick=function(){tour.classList.toggle('nocall');cb.style.opacity=tour.classList.contains('nocall')?.45:''};
+  document.getElementById('tFull').onclick=function(){try{document.fullscreenElement?document.exitFullscreen():tour.requestFullscreen()}catch(e){}};
+  tour.tabIndex=0;
+  tour.addEventListener('keydown',function(e){if(e.key==='ArrowRight')document.getElementById('tNext').click();if(e.key==='ArrowLeft')document.getElementById('tPrev').click();if(e.key===' '){e.preventDefault();playB.click();}});
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  go(0);
+  if(reduce){pause(); if(svg.pauseAnimations)svg.pauseAnimations();}
+  else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){en.forEach(function(x){inView=x.isIntersecting; if(inView&&!tour.dataset.user)play(); else if(!inView)pause();})},{threshold:.4}).observe(tour);
+    playB.addEventListener('click',function(){tour.dataset.user=playing?'':'1'});
+  } else play();
 })();
 </script>
 </body>
